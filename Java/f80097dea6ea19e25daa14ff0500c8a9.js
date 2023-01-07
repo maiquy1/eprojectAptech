@@ -2,21 +2,7 @@ function GLTFireEvent(lang_pair,lang_dest){try{if(document.createEvent){var even
 function doGoogleLanguageTranslator(lang_pair){if(window.glt_request_uri)return!0;if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang_dest=lang_pair.split('|')[1];var event;var classic=jQuery('.goog-te-combo');var simple=jQuery('.goog-te-menu-frame:first');var simpleValue=simple.contents().find('.goog-te-menu2-item span.text:contains('+lang_text+')');if(classic.length==0){for(var i=0;i<simple.length;i++){event=simple[i]}}else{for(var i=0;i<classic.length;i++){event=classic[i]}}
 if(document.getElementById('google_language_translator')!=null){if(classic.length!=0){if(lang_prefix!=default_lang){event.value=lang_dest;GLTFireEvent(event,'change')}else{jQuery('.goog-te-banner-frame:first').contents().find('.goog-close-link').get(0).click()}}else{event.value=lang_dest;if(lang_prefix!=default_lang){simpleValue.click()}else{jQuery('.goog-te-banner-frame:first').contents().find('.goog-close-link').get(0).click()}}}}
 jQuery(document).ready(function($){$('#glt-translate-trigger,#glt-translate-trigger font').toolbar({content:'#flags',position:'top',hideOnClick:!0,event:'click',style:'primary'});$('#glt-translate-trigger').on('toolbarItemClick',function(event){$(this).removeClass('pressed')})});
-/**
- * Toolbar.js
- *
- * @fileoverview  jQuery plugin that creates tooltip style toolbars.
- * @link          http://paulkinzett.github.com/toolbar/
- * @author        Paul Kinzett (http://kinzett.co.nz/)
- * @version       1.1.0
- * @requires      jQuery 1.7+
- *
- * @license jQuery Toolbar Plugin v1.1.0
- * http://paulkinzett.github.com/toolbar/
- * Copyright 2013 - 2015 Paul Kinzett (http://kinzett.co.nz/)
- * Released under the MIT license.
- * <https://raw.github.com/paulkinzett/toolbar/master/LICENSE.txt>
- */
+
 if(typeof Object.create!=='function'){Object.create=function(obj){function F(){}
 F.prototype=obj;return new F()}}(function($,window,document,undefined){var ToolBar={init:function(options,elem){var self=this;self.elem=elem;self.$elem=$(elem);self.options=$.extend({},$.fn.toolbar.options,options);self.metadata=self.$elem.data();self.overrideOptions();self.toolbar=$('<div class="tool-container" />').addClass('tool-'+self.options.position).addClass('toolbar-'+self.options.style).append('<div class="tool-items" />').append('<div class="arrow" />').appendTo('body').css('opacity',0).hide();self.toolbar_arrow=self.toolbar.find('.arrow');self.initializeToolbar()},overrideOptions:function(){var self=this;$.each(self.options,function($option){if(typeof(self.$elem.data('toolbar-'+$option))!="undefined"){self.options[$option]=self.$elem.data('toolbar-'+$option)}})},initializeToolbar:function(){var self=this;self.populateContent();self.setTrigger();self.toolbarWidth=self.toolbar.width()},setTrigger:function(){var self=this;if(self.options.event=='onload'){$(window).load(function(event){event.preventDefault();self.show()})}
 if(self.options.event=='click'){self.$elem.on('click',function(event){event.preventDefault();if(self.$elem.hasClass('pressed')){self.hide()}else{self.show()}});if(self.options.hideOnClick){$('html').on("click.toolbar",function(event){if(event.target!=self.elem&&self.$elem.has(event.target).length===0&&self.toolbar.has(event.target).length===0&&self.toolbar.is(":visible")){self.hide()}})}}
